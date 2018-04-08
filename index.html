@@ -240,22 +240,27 @@
           switchChat($("#custom-chat-id").val().toLowerCase());
         }
       });
-      stream = getUrlParameter('stream');
-      chat = getUrlParameter('chat');
-      if(stream !== undefined){
-        switchStream(stream);
-      }
-      if(chat !== undefined){
-        switchChat(chat);
+
+      const params = new URLSearchParams(location.search)
+
+      stream = params.get('stream')
+      chat = params.get('chat')
+
+      if (stream !== null) {
+        switchStream(stream)
       }
 
-      $("#tv-btn").click(function(){
-        if(stream === undefined || chat === undefined){
+      if (chat !== null) {
+        switchChat(chat)
+      }
+
+      $("#tv-btn").click(function () {
+        if (stream === null || chat === null) {
           alert("You need to set the chat and stream first!")
         } else {
           window.location = "/bob/tv?stream=" + stream + "&chat=" + chat
         }
-      });
+      })
 
     });
   </script>
